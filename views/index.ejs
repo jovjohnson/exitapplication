@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    
+    <link rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.min.css'/>
+    <link rel='stylesheet' href='/css/style.css'/>
+
+    <script src='/bower_components/jquery/dist/jquery.min.js'></script>
+    <script src='/bower_components/angular/angular.js'></script>
+    <script src='/bower_components/angular-ui-router/release/angular-ui-router.js'></script>
+    <script src='/bower_components/bootstrap/dist/js/bootstrap.min.js'></script>
+    <script src="js/module.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+  </head>
+  
+  <body ng-app='exitApp'>
+    
+    <h1>all the beers.</h1>
+ 
+ <!-- Navbar -->
+    <nav class="navbar navbar-default" ng-controller='navCtrl'>
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" ui-sref="home">beer journal!</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+
+            <li><a ui-sref="home">Home</a></li>
+            <li ng-hide="username"><a ui-sref='login'>Login</a></li>
+            <li ng-hide="username"><a ui-sref='register'>Register</a></li>
+            <li ng-show='username'><a ui-sref='profile'>My Profile</a></li>
+            <li ng-show='username'><a ui-sref='beers'>Get A Random Beer</a></li>
+
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li ng-show='username' class="navbar-text">Hello {{username}}!</li>
+          <li ng-show='username'>
+            <button ng-click='logout()'
+            type="button"
+            class="btn btn-default navbar-btn logout-btn">Log Out</button>
+          </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+
+
+
+
+
+    <!-- Ui-View -->
+    <ui-view></ui-view>
+
+
+
+
+
+
+  </body>
+</html>
