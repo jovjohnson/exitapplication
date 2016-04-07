@@ -45,21 +45,54 @@ app.controller('profileCtrl', function($scope, UserService, $state) {
 
 	UserService.set;
 
-	function render(user) {
-	UserService.getUser(UserService.set)
-	.then(function(res) {
-		UserService.set(res.data);
-		console.log("data:", res);
-	}, function(err) {
-		console.log(err);
-	});
-}
+// 	function render(user) {
+// 	UserService.getUser(UserService.set)
+// 	.then(function(res) {
+// 		UserService.set(res.data);
+// 		console.log("data:", res);
+// 	}, function(err) {
+// 		console.log(err);
+// 	});
+// }
 
-	render();
+// 	render();
 
-	
+
 });
 
-app.controller('beersCtrl', function($scope) {
+app.controller('beersCtrl', function($scope, BeerService, UserService, $http) {
+
+	// UserService.set;
+
+  $scope.$watch(function() {
+    return BeerService.beers;
+  }, function(beers) {
+
+    console.log('scope.beers', $scope.beers);
+    $scope.beers = beers;
+  });
+
+	BeerService.getBeer()
+	.then(function(res) {
+		console.log('res:', res.data.data);
+		$scope.beer = res.data.data;
+	}, function(err) {
+		console.log(err);
+	})
+
+	$scope.submit = function(){
+    BeerService.addBeer($scope.newBeer)
+    .then(function(res) {
+      console.log('added!');
+
+      BeerService.beers.push($scope.newBeer);
+      $scope.newBeer = {};
+    }, function(err) {
+      console.log(err);
+    });
+  };
+
+	
+
 	console.log('beeeeeeer');
 })

@@ -42,16 +42,28 @@ app.service('UserService', function($http) {
     console.log(this.username);
     console.log(this._id);
   };
-  
+
   this.destroy = function() {
     this.username = null;
     this._id = null;
   };
 
- //  this.getUser = function (userID) {
-	// 	return $http.get(`/users/${userID}`)
-	// }
+  
 });
 
 app.service('BeerService', function($http) {
-})
+
+  this.beers = [];
+
+  this.getBeers = function() {
+  	return $htto.get('/users/beers')
+  }
+
+	this.getBeer = function() {
+		return $http.get('/users/beer');
+	}
+
+	this.addBeer = function (newBeer) {
+		return $http.post('/users/beer', newBeer)
+	}
+});

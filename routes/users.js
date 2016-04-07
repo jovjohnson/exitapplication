@@ -2,6 +2,7 @@
 
 var express = require('express');
 var router = express.Router();
+var request = require('request');
 
 // Data Models
 var User = require('../models/User');
@@ -51,6 +52,20 @@ router.post('/register', function(req, res) {
   });
 });
 
+//GET RAND BEER
+router.get('/beer', function(req, res) {
+  request('http://api.brewerydb.com/v2/beer/random?key=1d64c804ec7f8e81e1e36b762ea7b843', function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    console.log('res', body); 
+    res.send(body);
+    }
+    else {
+      console.log(error);
+    }
+  })
+});
+
+
 //get user
 router.get('/:id', function(req, res) {
   var id = req.params.id;
@@ -69,19 +84,21 @@ router.get('/:id', function(req, res) {
 
 // API
 
-// GET Rests
-router.get('/', User.authMiddleware, function(req, res) {
+//GET BEERS
+
+router.get('/beers', User.authMiddleware, function(req, res) {
   res.send(req.user);
 });
 
-// POST Rest
-router.post('/rest', User.authMiddleware, function(req, res) {
-  Rest.create(req.body, function(err, rest) {
+
+// POST Beer
+router.post('/beer', User.authMiddleware, function(req, res) {
+  Beer.create(req.body, function(err, beer) {
       var user = req.user;
       if(err) {
         res.status(400).send(err);
       } else {
-       user.rests.push(rest._id);
+       user.beers.push(beer._id);
        user.save(function(err, savedUser) {
        res.status(err ? 400 : 200).send(err || savedUser);
        });
@@ -112,5 +129,8 @@ router.put('/rest/:id', User.authMiddleware, function(req, res) {
     };
   });
 });
+
+
+//GET RANDOM BEER
 
 module.exports = router;

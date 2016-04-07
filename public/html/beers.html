@@ -1,0 +1,26 @@
+<h1>How About This One?</h1>
+<br>
+<h3>{{beer.name}}</h3>
+<br>
+<div class="col-md-6">
+	<img ng-src='{{beer.labels.medium}}'>
+</div>
+<br>
+<div class="col-md-6">
+	<p>{{beer.style.description}}</p>
+</div>
+<br>
+<br>
+<br>
+
+<div id='user-input'>
+	Name: <input type="text" placeholder="{{beer.name}}" ng-model='newBeer.name'>
+	<br>
+	Sampled: <input type="checkbox" ng-model='newBeer.sampled'>
+	<br>
+	Rating: <input type="number" name="quantity" min="1" max="10" ng-model='newBeer.rating'>
+	<br>
+	Comments: <input type="text" ng-model='newBeer.comments'>
+	<br>
+	<button class='btn btn-default' ng-click='submit(newBeer)'>Submit</button>
+</div>
