@@ -1,5 +1,10 @@
 <h2>welcome {{user.username}}</h2>
 
-<a>see my beers</a>
 <br>
 <a>edit my profile</a>
+<br>
+<br>
+<h3>Sampled Beers</h3>
+<ul>
+	<li ng-repeat='beer in beers'>{{beer.name}}</li>
+</ul>

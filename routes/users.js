@@ -65,6 +65,9 @@ router.get('/beer', function(req, res) {
   })
 });
 
+router.get('/beers', User.authMiddleware, function(req, res) {
+  res.send(req.user);
+});
 
 //get user
 router.get('/:id', function(req, res) {
@@ -86,9 +89,7 @@ router.get('/:id', function(req, res) {
 
 //GET BEERS
 
-router.get('/beers', User.authMiddleware, function(req, res) {
-  res.send(req.user);
-});
+
 
 
 // POST Beer
@@ -106,26 +107,14 @@ router.post('/beer', User.authMiddleware, function(req, res) {
   });
 });
 
-// DELETE Rest
-router.delete('/rest/:id', User.authMiddleware, function(req, res) {
-  var user = req.user;
-  Rest.find({_id: req.params.id}).remove().exec(function(err) {
-    if(err) {
-      res.status(400).send(err);
-    } else {
-      user.rests.splice(user.rests.indexOf(req.params.id), 1);
-      res.send(req.params.id);
-    }
-  });
-});
 
-// UPDATE Rest
-router.put('/rest/:id', User.authMiddleware, function(req, res) {
-  Rest.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true }, function(err, rest) {
+// UPDATE profile
+router.put('/user/:id', User.authMiddleware, function(req, res) {
+  Rest.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true }, function(err, user) {
     if(err) {
       res.status(400).send(err);
     } else {
-      res.send(rest);
+      res.send(user);
     };
   });
 });

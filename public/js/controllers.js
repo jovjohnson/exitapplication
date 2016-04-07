@@ -41,9 +41,18 @@ app.controller('loginCtrl', function($scope, $state, AuthService) {
   };
 });
 
-app.controller('profileCtrl', function($scope, UserService, $state) {
+app.controller('profileCtrl', function($scope, UserService, BeerService, $state) {
 
 	UserService.set;
+  var user = UserService.user;
+
+  $scope.$watch(function() {
+    return BeerService.beers;
+  }, function(beers) {
+
+    console.log('scope.beers', $scope.beers);
+    $scope.beers = user.beers;
+  });
 
 // 	function render(user) {
 // 	UserService.getUser(UserService.set)
@@ -64,13 +73,6 @@ app.controller('beersCtrl', function($scope, BeerService, UserService, $http) {
 
 	// UserService.set;
 
-  $scope.$watch(function() {
-    return BeerService.beers;
-  }, function(beers) {
-
-    console.log('scope.beers', $scope.beers);
-    $scope.beers = beers;
-  });
 
 	BeerService.getBeer()
 	.then(function(res) {
