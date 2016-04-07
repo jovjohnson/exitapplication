@@ -2,6 +2,17 @@
 
 <br>
 <a>edit my profile</a>
+
+<div ng-show='profileToEdit'>
+		<h4>Edit Profile</h4>
+		<input class="edit" ng-model='profileToEdit.email'type="text" placeholder="email">
+		<input class="edit" ng-model='profileToEdit.password' type="password" placeholder="email">
+		
+		<button class="btn" ng-click="confirmEdit()"></i></button>
+		
+		<!-- can also do ng-click = 'shoeToEdit = null' to cancel edit -->
+		<button class="btn" ng-click='cancelEdit()'></i></button> 
+	</div>
 <br>
 <br>
 <h3>Sampled Beers</h3>

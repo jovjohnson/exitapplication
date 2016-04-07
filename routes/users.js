@@ -69,6 +69,17 @@ router.get('/beers', User.authMiddleware, function(req, res) {
   res.send(req.user);
 });
 
+
+//get sampled beers
+router.get('/sample', User.authMiddleware, function(req, res) {
+  Beer.find({sampled: true}, function(err, beers) {
+    if(err) {
+      return res.status(400).send(err);
+    }
+    res.send(beers);
+  })
+})
+
 //get user
 router.get('/:id', function(req, res) {
   var id = req.params.id;
@@ -100,7 +111,7 @@ router.post('/beer', User.authMiddleware, function(req, res) {
 
 // UPDATE profile
 router.put('/user/:id', User.authMiddleware, function(req, res) {
-  Rest.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true }, function(err, user) {
+  User.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true }, function(err, user) {
     if(err) {
       res.status(400).send(err);
     } else {

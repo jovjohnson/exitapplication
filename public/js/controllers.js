@@ -54,6 +54,20 @@ app.controller('profileCtrl', function($scope, UserService, BeerService, $state)
     $scope.beers = user.beers;
   });
 
+  $scope.editProfile = function(user) {
+    //edit input
+    $scope.profileToEdit = angular.copy(user);
+    $scope.editingProfile = false;
+  };
+
+  $scope.cancelEdit = function() {
+    $scope.profileToEdit = null;
+  };
+
+  $scope.confirmEdit = function(user) {
+    UserService.update(user);
+  };
+
 // 	function render(user) {
 // 	UserService.getUser(UserService.set)
 // 	.then(function(res) {

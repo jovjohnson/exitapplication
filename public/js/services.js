@@ -48,6 +48,10 @@ app.service('UserService', function($http) {
     this._id = null;
   };
 
+  this.update = function(userID) {
+  	return $http.put(`/users/${userID}`)
+  }
+
   
 });
 
